@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>Bem-vindo - Waisler</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  font-family: Arial, sans-serif;
+  background:#f2f2f2;
+  margin:0;
+}
+#app{
+  max-width:420px;
+  margin:auto;
+  padding:15px;
+}
+.msg{
+  background:#fff;
+  padding:12px;
+  margin-bottom:10px;
+  border-radius:12px;
+}
+button{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  font-size:15px;
+  cursor:pointer;
+  margin-top:8px;
+}
+.green{background:#25d366;color:#fff;}
+.gray{background:#ccc;color:#000;}
+.groupbtn{background:#128C7E;color:#fff;}
+input,textarea,select{
+  width:100%;
+  padding:10px;
+  margin-top:6px;
+  border-radius:8px;
+  border:1px solid #ccc;
+}
+.hidden{display:none;}
+</style>
+</head>
+
+<body>
+<div id="app">
+
+<div id="inicio" class="msg">
+<b>👋 Bem-vindo ao Site do Waisler</b><br><br>
+🌐💸 <b>SPEED NET VODACOM</b> 💸🌐<br><br>
+💼 Serviço profissional<br>
+⚡ Entrega rápida e segura<br><br>
+Deseja continuar?
+</div>
+<button class="green" onclick="mostrarTabela()">SIM</button>
+
+<div id="tabela" class="hidden">
+<div class="msg">
+
+<b>📊 PACOTES DIÁRIOS</b><br><br>
+
+8MT ➜ 200MB<br>
+10MT ➜ 250MB<br>
+14MT ➜ 400MB<br>
+18MT ➜ 580MB<br>
+21MT ➜ 700MB<br>
+35MT ➜ 1024MB<br>
+37MT ➜ 1150MB<br>
+40MT ➜ 1500MB<br>
+60MT ➜ 2150MB<br>
+70MT ➜ 2300MB<br>
+80MT ➜ 2400MB<br>
+98MT ➜ 3150MB<br>
+100MT ➜ 3400MB<br>
+134MT ➜ 4050MB<br>
+150MT ➜ 4500MB<br>
+160MT ➜ 5120MB<br>
+180MT ➜ 6150MB<br><br>
+
+<b>🌟 PACOTES SEMANAIS 🌟</b><br><br>
+
+50MT ➜ 550MB<br>
+79MT ➜ 1500MB<br>
+90MT ➜ 2000MB<br>
+180MT ➜ 3500MB<br>
+195MT ➜ 4150MB<br>
+285MT ➜ 6000MB<br>
+390MT ➜ 8000MB<br>
+550MT ➜ 10000MB<br>
+
+</div>
+
+<div class="msg">
+Tipo de pacote:
+<select id="tipo">
+<option value="">-- escolher --</option>
+<option>Diário</option>
+<option>Semanal</option>
+</select>
+</div>
+
+<div class="msg">
+Pacote escolhido:
+<input id="pacote" placeholder="Ex: 50MT ➜ 550MB">
+</div>
+
+<div class="msg">
+Número que vai receber:
+<input id="numeroCliente" placeholder="84xxxxxxx / 85xxxxxxx">
+</div>
+
+<button class="green" onclick="irPagamento()">CONTINUAR</button>
+<button class="gray" onclick="voltarInicio()">VOLTAR</button>
+</div>
+
+<div id="pagamento" class="hidden">
+<div class="msg">
+<b>💳 PAGAMENTO</b><br><br>
+M-Pesa<br>
+📞 <b>841015330</b><br>
+Nome: <b>Denilson</b><br><br>
+Após pagamento clique abaixo.
+</div>
+
+<button class="green" onclick="mostrarConfirmacao()">PAGUEI</button>
+<button class="gray" onclick="voltarTabela()">VOLTAR</button>
+</div>
+
+<div id="confirmacao" class="hidden">
+<div class="msg">
+Cole o comprovativo abaixo.<br>
+<b>Deve conter a palavra “transferiste”</b>
+</div>
+
+<textarea id="comprovativo" rows="4"></textarea>
+
+<button class="green" onclick="finalizar()">CONFIRMAR</button>
+<button class="gray" onclick="voltarPagamento()">VOLTAR</button>
+</div>
+
+<div id="resumo" class="hidden">
+<div class="msg">
+<b>✅ CONFIRMAÇÃO FINAL</b><br><br>
+Tipo: <span id="rTipo"></span><br>
+Pacote: <span id="rPacote"></span><br>
+Número destino: <span id="rNumero"></span><br>
+Pagamento para: 841015330 (Denilson)
+</div>
+
+<button class="green" id="btnWhats">ENVIAR PARA WHATSAPP</button>
+
+<button class="groupbtn" id="btnGrupo">
+ENTRAR NO GRUPO
+</button>
+
+</div>
+
+</div>
+
+<script>
+const whatsappVendedor = "258850461861";
+const linkGrupo = "https://chat.whatsapp.com/IH8WfWvilFuBSMBNV7Jq7mA";
+
+function mostrarTabela(){
+ inicio.classList.add("hidden");
+ tabela.classList.remove("hidden");
+}
+
+function voltarInicio(){
+ location.reload();
+}
+
+function irPagamento(){
+ if(!tipo.value || !pacote.value || numeroCliente.value.length < 9){
+  alert("Preencha todos os campos corretamente");
+  return;
+ }
+ tabela.classList.add("hidden");
+ pagamento.classList.remove("hidden");
+}
+
+function voltarTabela(){
+ pagamento.classList.add("hidden");
+ tabela.classList.remove("hidden");
+}
+
+function mostrarConfirmacao(){
+ pagamento.classList.add("hidden");
+ confirmacao.classList.remove("hidden");
+}
+
+function voltarPagamento(){
+ confirmacao.classList.add("hidden");
+ pagamento.classList.remove("hidden");
+}
+
+function finalizar(){
+ if(!comprovativo.value.toLowerCase().includes("transferiste")){
+  alert("Comprovativo inválido");
+  return;
+ }
+
+ rTipo.innerText = tipo.value;
+ rPacote.innerText = pacote.value;
+ rNumero.innerText = numeroCliente.value;
+
+ let mensagemConfirmacao =
+  "✅ PAGAMENTO CONFIRMADO\n\n"+
+  "Tipo: "+tipo.value+"\n"+
+  "Pacote: "+pacote.value+"\n"+
+  "Número destino: "+numeroCliente.value+"\n"+
+  "Pagamento para: 841015330 (Denilson)\n\n"+
+  comprovativo.value;
+
+ let msgCodificada = encodeURIComponent(mensagemConfirmacao);
+
+ btnWhats.onclick = function(){
+  window.open("https://wa.me/"+whatsappVendedor+"?text="+msgCodificada,"_blank");
+ };
+
+ btnGrupo.onclick = function(){
+  window.open("https://wa.me/"+whatsappVendedor+"?text="+msgCodificada,"_blank");
+  setTimeout(function(){
+    window.open(linkGrupo,"_blank");
+  },2000);
+ };
+
+ confirmacao.classList.add("hidden");
+ resumo.classList.remove("hidden");
+}
+</script>
+
+</body>
+</html>
